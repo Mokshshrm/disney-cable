@@ -1,14 +1,14 @@
 import React from 'react';
-import Header from './headers/header'
-
+import {Routes, Route, Switch } from 'react-router-dom'
+import Login from './components/Login'
 const App = () => {
-  const [cartItemCounter,setCartItemCounter] = React.useState({
-    counter:0,
-  })
+
   return (
-
-    <Header cartItemCounter={cartItemCounter} />
-
+    <div className='App'>
+      <Routes>
+        <Route exact path='/' element={<Login />} />
+      </Routes>
+    </div>
   );
 }
 
