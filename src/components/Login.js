@@ -1,16 +1,20 @@
 import React, { useState } from "react";
 import styled from 'styled-components'
-
+import image from '../assets/images/login-background.jpg'
 export default function Login(props) {
 
     const [formData, setData] = useState({})
 
     return (
         <Container>
-            <Content>content</Content>
+            <Content>
+                <BgImage>
+                </BgImage>
+            </Content>
         </Container>
     )
 }
+
 const Container = styled.section`
     overflow:hidden;
     display:flex;
@@ -36,5 +40,13 @@ const Content = styled.div`
 
 const BgImage = styled.div`
     height: 100%;
-    background-image: url('../public/assets/image/login0background');
+    background-position: top;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url(${image});
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: -1;
 `
