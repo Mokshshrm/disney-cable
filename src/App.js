@@ -1,14 +1,21 @@
 import React from 'react';
-import {Routes, Route, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Routes, Switch } from 'react-router-dom'
+
 import Login from './components/Login'
+import Header from './components/header';
+
 const App = () => {
 
   return (
     <div className='App'>
-      <Routes>
-        <Route exact path='/' element={<Login />} />
-      </Routes>
-    </div>
+      <Router>
+        <Header />
+        
+        <Routes>
+          <Route exact path='/' element={<Login />} />
+        </Routes>
+      </Router>
+    </div >
   );
 }
 
