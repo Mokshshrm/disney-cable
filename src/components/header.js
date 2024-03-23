@@ -11,7 +11,7 @@ import { auth } from '../firebase.js'
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import { selectUserEmail, selectUserName, selectUserPhoto, setUserLoginDetails } from "../features/user/userSlice.js"
+import { selectUserEmail, selectUserName, selectUserPhoto, setUserLogInDetails, setUserLogOutState } from "../features/user/userSlice.js"
 
 
 export default function Header(Props) {
@@ -34,7 +34,7 @@ export default function Header(Props) {
 
     function setUser(user) {
         dispatch(
-            setUserLoginDetails({
+            setUserLogInDetails({
                 name: user.displayName,
                 email: user.email,
                 photo: user.photoURL,
@@ -56,7 +56,9 @@ export default function Header(Props) {
                 <span>{data.text}</span>
             </a>
             <div />
-        </Items>)
+        </Items>
+    )
+
     return (
         <Nav>
             <Logo href="/">
@@ -83,7 +85,7 @@ export default function Header(Props) {
     )
 }
 
-// Styled components Css
+// Styled components Css : -
 
 const Nav = styled.nav`
     position: fixed;
@@ -125,7 +127,7 @@ const NavMenu = styled.div`
     margin-top: 16px;
     margin-right: auto;
     margin-left: 20px;
-    @media  (max-width:768px){
+    @media (max-width:768px){
         display: none;
     }
 `
@@ -193,7 +195,6 @@ const LoginButton = styled.a`
         color : black;
     }
 `
-
 const UserProfile = styled.a`
     img{
         height: 66px;
