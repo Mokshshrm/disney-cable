@@ -11,7 +11,7 @@ import { auth } from '../firebase.js'
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import { selectUserEmail, selectUserName, selectUserPhoto } from "../features/user/userSlice.js"
+import { selectUserEmail, selectUserName, selectUserPhoto, setUserLoginDetails } from "../features/user/userSlice.js"
 
 
 export default function Header(Props) {
@@ -21,19 +21,25 @@ export default function Header(Props) {
     const userName = useSelector(selectUserName)
     const userEmail = useSelector(selectUserEmail)
     const userPhoto = useSelector(selectUserPhoto)
-    
+
 
     async function HandleLogin() {
         const provider = new GoogleAuthProvider();
         signInWithPopup(auth, provider).then(result => {
-            HandleAuth(result.user)
+            setUser(result.user)
         }).catch(err => {
             alert(err.message)
         })
     }
 
-    function HandleAuth(user) {
-
+    function setUser(user) {
+        dispatch(
+            setUserLoginDetails({
+                name: user.displayName,
+                email: user.email,
+                photo: user.photoURL,
+            })
+        )
     }
 
     const data = [{ logo: HOMELOGO, text: "HOME", route: "/home" },
@@ -76,6 +82,9 @@ export default function Header(Props) {
         </Nav>
     )
 }
+
+// Styled components Css
+
 const Nav = styled.nav`
     position: fixed;
     top: 0;
