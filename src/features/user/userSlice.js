@@ -19,7 +19,6 @@ const userSlice = createSlice({
             state.name = null
             state.email = null
             state.photo = null
-
         }
     }
 })
