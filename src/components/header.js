@@ -7,18 +7,33 @@ import SEARCHICON from '../assets/images/search-icon.svg'
 import SERIESICON from '../assets/images/series-icon.svg'
 import WATCHLISTICON from '../assets/images/watchlist-icon.svg'
 import ORIGINALS from '../assets/images/original-icon.svg'
-import { auth, provider } from '../firebase.js'
+import { auth } from '../firebase.js'
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
+import { useDispatch, useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom'
+import { selectUserEmail, selectUserName, selectUserPhoto } from "../features/user/userSlice.js"
+
+
 export default function Header(Props) {
 
+    const history = useHistory();
+    const dispatch = useDispatch();
+    const userName = useSelector(selectUserName)
+    const userEmail = useSelector(selectUserEmail)
+    const userPhoto = useSelector(selectUserPhoto)
+    
 
     async function HandleLogin() {
         const provider = new GoogleAuthProvider();
         signInWithPopup(auth, provider).then(result => {
-            console.log(result)
+            HandleAuth(result.user)
         }).catch(err => {
             alert(err.message)
         })
+    }
+
+    function HandleAuth(user) {
+
     }
 
     const data = [{ logo: HOMELOGO, text: "HOME", route: "/home" },
@@ -28,8 +43,8 @@ export default function Header(Props) {
     { logo: SERIESICON, text: "SERIES", route: "/series" },
     { logo: MOVIEICON, text: "MOVIES", route: "/movies" }]
 
-    const items = data.map(data =>
-        <Items>
+    const items = data.map((data, idx) =>
+        <Items key={idx}>
             <a href={data.route}>
                 <img src={data.logo} alt="NOting is here" />
                 <span>{data.text}</span>
@@ -41,12 +56,23 @@ export default function Header(Props) {
             <Logo href="/">
                 <img src={LOGO} alt="Disney + logo"></img>
             </Logo>
-            <NavMenu>
-                {false && items}
-            </NavMenu>
-            <LoginButton onClick={HandleLogin}>
-                Login
-            </LoginButton>
+            {!false ?
+                (
+                    <LoginButton onClick={HandleLogin}>
+                        Login
+                    </LoginButton>
+                ) :
+                (
+                    <>
+                        <NavMenu>
+                            {items}
+                        </NavMenu>
+                        <UserProfile href="" alt="UserAvtar" >
+                            <img src={HOMELOGO} />
+                        </UserProfile>
+                    </>
+                )
+            }
         </Nav>
     )
 }
@@ -156,5 +182,11 @@ const LoginButton = styled.a`
         cursor: pointer;
         background-color: #f9f9f9;
         color : black;
+    }
+`
+
+const UserProfile = styled.a`
+    img{
+        height: 66px;
     }
 `
