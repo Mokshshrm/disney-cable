@@ -62,7 +62,7 @@ export default function Header(Props) {
             <Logo href="/">
                 <img src={LOGO} alt="Disney + logo"></img>
             </Logo>
-            {!false ?
+            {!userName ?
                 (
                     <LoginButton onClick={HandleLogin}>
                         Login
