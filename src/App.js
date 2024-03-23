@@ -1,8 +1,9 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Routes} from 'react-router-dom'
 
 import Login from './components/Login'
 import Header from './components/header';
+import LoginPage from './pages/LoginPage'
 
 const App = () => {
 
@@ -10,9 +11,8 @@ const App = () => {
     <div className='App'>
       <Router>
         <Header />
-        
         <Routes>
-          <Route exact path='/' element={<Login />} />
+          <Route exact index path='/' element={<Login />} />
         </Routes>
       </Router>
     </div >

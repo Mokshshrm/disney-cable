@@ -7,12 +7,30 @@ import SEARCHICON from '../assets/images/search-icon.svg'
 import SERIESICON from '../assets/images/series-icon.svg'
 import WATCHLISTICON from '../assets/images/watchlist-icon.svg'
 import ORIGINALS from '../assets/images/original-icon.svg'
-
+import { auth, provider } from '../firebase.js'
+import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 export default function Header(Props) {
-    const data = [{ logo: HOMELOGO, text: "HOME" }, { logo: WATCHLISTICON, text: "WATCHLIST" }, { logo: SEARCHICON, text: "SEARCH" }, { logo: ORIGINALS, text: "ORIGINALS" }, { logo: SERIESICON, text: "SERIES" }, { logo: MOVIEICON, text: "MOVIES" }]
+
+
+    async function HandleLogin() {
+        const provider = new GoogleAuthProvider();
+        signInWithPopup(auth, provider).then(result => {
+            console.log(result)
+        }).catch(err => {
+            alert(err.message)
+        })
+    }
+
+    const data = [{ logo: HOMELOGO, text: "HOME", route: "/home" },
+    { logo: WATCHLISTICON, text: "WATCHLIST", route: "/watchlist" },
+    { logo: SEARCHICON, text: "SEARCH", route: "/search" },
+    { logo: ORIGINALS, text: "ORIGINALS", route: "/originals" },
+    { logo: SERIESICON, text: "SERIES", route: "/series" },
+    { logo: MOVIEICON, text: "MOVIES", route: "/movies" }]
+
     const items = data.map(data =>
         <Items>
-            <a href="/home">
+            <a href={data.route}>
                 <img src={data.logo} alt="NOting is here" />
                 <span>{data.text}</span>
             </a>
@@ -20,12 +38,15 @@ export default function Header(Props) {
         </Items>)
     return (
         <Nav>
-            <Logo>
+            <Logo href="/">
                 <img src={LOGO} alt="Disney + logo"></img>
             </Logo>
             <NavMenu>
-                {items}
+                {false && items}
             </NavMenu>
+            <LoginButton onClick={HandleLogin}>
+                Login
+            </LoginButton>
         </Nav>
     )
 }
@@ -63,12 +84,12 @@ const NavMenu = styled.div`
     flex-flow: row nowwrap;
     height: 100%;
     justify-content: flex-end;
-    padding: 0px;
+    padding:0px;
     margin: 0px;
     position: relative;
+    margin-top: 16px;
     margin-right: auto;
-    margin-left: 25px;
-    padding-top: 4px;
+    margin-left: 20px;
     @media  (max-width:768px){
         display: none;
     }
@@ -120,4 +141,20 @@ const Items = styled.div`
         }
     }
 `
+const LoginButton = styled.a`
+    letter-spacing: 4px;
+    font-weight: bold;
+    font-size: px;
+    border: 1px solid #f9f9f9;
+    background-color: rgb(0,0,0,0.6);
+    padding:12px 24px;
+    border-radius: 8px;
 
+    transition: all 0.8s ease 0s;
+    &:hover{
+        font-weight: bolder;
+        cursor: pointer;
+        background-color: #f9f9f9;
+        color : black;
+    }
+`

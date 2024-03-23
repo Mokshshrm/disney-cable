@@ -1,13 +1,9 @@
-import React, { useState } from "react";
 import styled from 'styled-components'
 import BGIMAGE from '../assets/images/login-background.jpg'
 import CTALOGOONE from '../assets/images/cta-logo-one.svg'
 import CTALOGOTWO from '../assets/images/cta-logo-two.png'
 
 export default function Login(props) {
-
-    const [formData, setData] = useState({})
-
     return (
         <Container>
             <Content>
@@ -112,7 +108,6 @@ const Description = styled.p`
     margin: 0 0 23px;
     line-height: 1.5;
     letter-spacing: 1.5px;
-
 `
 const CTALogoTwo = styled.img`
     max-width: 600px;
