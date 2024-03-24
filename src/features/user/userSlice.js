@@ -1,4 +1,4 @@
-import { createSlice } from 'redux-toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
     name: null,
@@ -11,11 +11,12 @@ const userSlice = createSlice({
     initialState,
     reducer: {
         setUserLogInDetails: (state, action) => {
-            state.name = action.value.name;
-            state.email = action.value.email;
-            state.photo = action.value.photo
+            console.log(action)
+            state.name = action.payload.name;
+            state.email = action.payload.email;
+            state.photo = action.payload.photo;
         },
-        setUserLogOutState: (state) => {
+        setUserLogOutState: (state, action) => {
             state.name = null
             state.email = null
             state.photo = null

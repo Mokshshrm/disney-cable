@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import React from "react"
+import { React, useEffect } from "react"
 import LOGO from '../assets/images/logo.svg'
 import HOMELOGO from '../assets/images/home-icon.svg'
 import MOVIEICON from '../assets/images/movie-icon.svg'
@@ -7,21 +7,41 @@ import SEARCHICON from '../assets/images/search-icon.svg'
 import SERIESICON from '../assets/images/series-icon.svg'
 import WATCHLISTICON from '../assets/images/watchlist-icon.svg'
 import ORIGINALS from '../assets/images/original-icon.svg'
+import PROFILEPIC from '../assets/images/slider-badging.jpg'
+
 import { auth } from '../firebase.js'
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 import { useDispatch, useSelector } from 'react-redux'
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { selectUserEmail, selectUserName, selectUserPhoto, setUserLogInDetails, setUserLogOutState } from "../features/user/userSlice.js"
 
 
 export default function Header(Props) {
 
-    const history = useHistory();
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const userName = useSelector(selectUserName)
     const userEmail = useSelector(selectUserEmail)
     const userPhoto = useSelector(selectUserPhoto)
 
+    useEffect(() => {
+        if (!userName) {
+
+            auth.onAuthStateChanged(async () => {
+                if (userName) {
+                    // setUser()
+                    navigate("/home")
+                }
+            })
+        } else if (userName) {
+            auth.signOut().then(() => {
+                dispatch(setUserLogOutState)
+                navigate('/')
+            }).catch((err) => {
+                alert(err.message)
+            })
+        }
+    }, [userName])
 
     async function HandleLogin() {
         const provider = new GoogleAuthProvider();
@@ -33,13 +53,7 @@ export default function Header(Props) {
     }
 
     function setUser(user) {
-        dispatch(
-            setUserLogInDetails({
-                name: user.displayName,
-                email: user.email,
-                photo: user.photoURL,
-            })
-        )
+        dispatch(setUserLogInDetails(user))
     }
 
     const data = [{ logo: HOMELOGO, text: "HOME", route: "/home" },
@@ -75,9 +89,12 @@ export default function Header(Props) {
                         <NavMenu>
                             {items}
                         </NavMenu>
-                        <UserProfile href="" alt="UserAvtar" >
-                            <img src={HOMELOGO} />
-                        </UserProfile>
+                        <SignOut>
+                            <UserProfile src={PROFILEPIC} alt="UserAvtar" ></UserProfile>
+                            <DropDown>
+                                <span onClick={setUserLogOutState}>Sign out</span>
+                            </DropDown>
+                        </SignOut>
                     </>
                 )
             }
@@ -101,7 +118,6 @@ const Nav = styled.nav`
     align-items: center;
     letter-spacing: 16px;
     z-index: 3;
-
 `
 const Logo = styled.a`
     padding: 0;
@@ -195,8 +211,41 @@ const LoginButton = styled.a`
         color : black;
     }
 `
-const UserProfile = styled.a`
-    img{
-        height: 66px;
+const UserProfile = styled.img`
+    width: 50px;
+    height: 50px;
+`
+const DropDown = styled.div`
+    position: absolute;
+    top: 48px;
+    right: 0px;
+    background:rgb(19,19,19);
+    border: 1px solid rgba(151,151,151,0.34);
+    border-radius: 4px;
+    box-shadow: rgb( 0 0 0 / 50%) 0px 0px 18px 0px;
+    letter-spacing: 3px;
+    padding: 10px;
+    font-size: 14px;
+    width: 100px;
+    opacity: 0;
+`
+const SignOut = styled.div`
+    position: relative;
+    height: 48px;
+    width:48px;
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    ${UserProfile}{
+        border-radius: 50%;
+        width: 100%;
+        height: 100%;
+    }
+    &:hover{
+        ${DropDown}{
+            opacity: 1;
+            transition-duration:1s;
+        }
     }
 `

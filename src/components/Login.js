@@ -28,7 +28,6 @@ const Container = styled.section`
     height:100vh;
     
 `
-
 const Content = styled.div`
     margin-bottom: 10vw;
     width:100%;
@@ -42,7 +41,6 @@ const Content = styled.div`
     padding: 80px 40px;
     height: 100%;
 `
-
 const BgImage = styled.div`
     height: 100%;
     background-position: top;
@@ -55,7 +53,6 @@ const BgImage = styled.div`
     left: 0;
     z-index: -1;
 `
-
 const CTA = styled.div`
     /* margin-bottom: 2vw;
     max-width: 615px;
@@ -76,7 +73,6 @@ const CTA = styled.div`
     flex-direction: column;
 
 `
-
 const CTALogoOne = styled.img`
     /* height: 100%; */
     /* width: 100%; */
