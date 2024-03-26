@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import { React, useEffect } from "react"
+import { React, useEffect, useReducer } from "react"
 import LOGO from '../assets/images/logo.svg'
 import HOMELOGO from '../assets/images/home-icon.svg'
 import MOVIEICON from '../assets/images/movie-icon.svg'
@@ -25,31 +25,32 @@ export default function Header(Props) {
     const userPhoto = useSelector(selectUserPhoto)
 
     useEffect(() => {
-        if (!userName) {
+        auth.onAuthStateChanged(async (user) => {
+            if (user) {
+                setUser(user)
+                navigate("/home")
+            }
+        })
 
-            auth.onAuthStateChanged(async () => {
-                if (userName) {
-                    // setUser()
-                    navigate("/home")
-                }
+    }, [userName])
+
+    async function HandleLogin() {
+        if (!userName) {
+            const provider = new GoogleAuthProvider();
+            signInWithPopup(auth, provider).then(result => {
+                setUser(result.user)
+                navigate("/home")
+            }).catch(err => {
+                alert(err.message)
             })
         } else if (userName) {
             auth.signOut().then(() => {
-                dispatch(setUserLogOutState)
+                dispatch(setUserLogOutState())
                 navigate('/')
             }).catch((err) => {
                 alert(err.message)
             })
         }
-    }, [userName])
-
-    async function HandleLogin() {
-        const provider = new GoogleAuthProvider();
-        signInWithPopup(auth, provider).then(result => {
-            setUser(result.user)
-        }).catch(err => {
-            alert(err.message)
-        })
     }
 
     function setUser(user) {
@@ -72,7 +73,6 @@ export default function Header(Props) {
             <div />
         </Items>
     )
-
     return (
         <Nav>
             <Logo href="/">
@@ -92,7 +92,7 @@ export default function Header(Props) {
                         <SignOut>
                             <UserProfile src={PROFILEPIC} alt="UserAvtar" ></UserProfile>
                             <DropDown>
-                                <span onClick={setUserLogOutState}>Sign out</span>
+                                <span onClick={HandleLogin}>Sign out</span>
                             </DropDown>
                         </SignOut>
                     </>

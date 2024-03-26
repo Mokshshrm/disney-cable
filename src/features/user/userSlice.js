@@ -9,12 +9,11 @@ const initialState = {
 const userSlice = createSlice({
     name: 'user',
     initialState,
-    reducer: {
+    reducers: {
         setUserLogInDetails: (state, action) => {
-            console.log(action)
-            state.name = action.payload.name;
+            state.name = action.payload.displayName;
             state.email = action.payload.email;
-            state.photo = action.payload.photo;
+            state.photo = action.payload.photoURL;
         },
         setUserLogOutState: (state, action) => {
             state.name = null
@@ -25,8 +24,8 @@ const userSlice = createSlice({
 })
 
 export const { setUserLogInDetails, setUserLogOutState } = userSlice.actions;
-export const selectUserName = (state) => (state.name)
-export const selectUserEmail = (state) => (state.email)
-export const selectUserPhoto = (state) => (state.photo)
+export const selectUserName = (state) => state.user.name
+export const selectUserEmail = (state) => state.user.email
+export const selectUserPhoto = (state) => state.user.photo
 
 export default userSlice.reducer;
