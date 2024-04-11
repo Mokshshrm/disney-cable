@@ -44,7 +44,7 @@ const Content = styled.div`
 const BgImage = styled.div`
     height: 100%;
     background-position: top;
-    background-size: cover;
+     background-size: cover;
     background-repeat: no-repeat;
     background-image: url(${BGIMAGE});
     position: absolute;
@@ -81,7 +81,6 @@ const CTALogoOne = styled.img`
     min-height: 1px;
     display: block;
     width:100%;
-
 `
 const SignUp = styled.a`
     font-weight:bold;

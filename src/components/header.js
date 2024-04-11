@@ -30,6 +30,9 @@ export default function Header(Props) {
                 setUser(user)
                 navigate("/home")
             }
+            else{
+                navigate("/")
+            }
         })
 
     }, [userName])

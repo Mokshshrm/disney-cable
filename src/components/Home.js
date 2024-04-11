@@ -3,19 +3,26 @@ import styled from 'styled-components'
 import HOMEBACKGROUND from '../assets/images/home-background.png'
 import ImageSlider from "./ImageSlider";
 import Viewers from "./Viewers";
-
+import Recommended from "./Recommended";
+import NewDisney from "./NewDisney";
+import Originals from "./Originals";
+import Trending from "./Trending";
 export default function Home(props) {
-
     return (
         <Container>
             <ImageSlider />
+            <Viewers />
+            <Recommended /> 
+            <NewDisney />
+            <Originals />
+            <Trending />
         </Container>
     )
 }
 
 const Container = styled.main`
     position: relative;
-    min-height: calc(100vh - 150px);
+    min-height: calc(100vh - 250px);
     overflow-x:hidden;
     display: block;
     top: 70px;
