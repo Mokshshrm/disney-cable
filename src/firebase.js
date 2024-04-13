@@ -1,6 +1,9 @@
 import { initializeApp } from 'firebase/app'
+import { getFirestore } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth'
 import { GoogleAuthProvider } from 'firebase/auth'
+
+
 const firebaseConfig = {
     apiKey: "AIzaSyD5XmCqE0XzR63kEfw3GHyZg3AW4FaiKzI",
     authDomain: "disneyplus-cable.firebaseapp.com",
@@ -15,3 +18,4 @@ const firebaseConfig = {
 const firebaseApp = initializeApp(firebaseConfig);
 export const auth = getAuth(firebaseApp)
 export const provider = new GoogleAuthProvider();
+export const db = getFirestore(firebaseApp);

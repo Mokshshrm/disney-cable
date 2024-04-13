@@ -1,44 +1,25 @@
 import styled from "styled-components";
-import React from "react";
 import { Link } from 'react-router-dom'
-import INSIDEOUT from '../assets/images/insideout.jpeg'
+import { selectNewDisney } from "../features/movie/movieSlice";
+import { useSelector } from 'react-redux'
 
 export default function NewDisney() {
+    const NewDisneyRef = useSelector(selectNewDisney)
     return (
         <Container>
             <h1>New to Disney+</h1>
             <Content>
-                <Wrap>
-                    <Link to='/'
-                        src=""
-                        alt=''
-                    >
-                        <img src="https://c7.alamy.com/comp/EJ32BH/inside-out-2015-walt-disney-pictures-animation-with-from-left-anger-EJ32BH.jpg" alt="" />
-                    </Link>
-                </Wrap>
-                <Wrap>
-                    <Link to='/'
-                        src={INSIDEOUT}
-                        alt=''
-                    >
-                        <img src="https://c7.alamy.com/comp/EJ32BH/inside-out-2015-walt-disney-pictures-animation-with-from-left-anger-EJ32BH.jpg" alt="" />
-                    </Link>
-                </Wrap>
-                <Wrap>
-                    <Link to='/'
-                        src={INSIDEOUT}alt=''
-                    >
-                        <img src="https://c7.alamy.com/comp/EJ32BH/inside-out-2015-walt-disney-pictures-animation-with-from-left-anger-EJ32BH.jpg" alt="" />
-                    </Link>
-                </Wrap>
-                <Wrap>
-                    <Link to='/'
-                        src={INSIDEOUT}
-                        alt=''
-                    >
-                        <img src="https://c7.alamy.com/comp/EJ32BH/inside-out-2015-walt-disney-pictures-animation-with-from-left-anger-EJ32BH.jpg" alt="" />
-                    </Link>
-                </Wrap>
+                {NewDisneyRef && NewDisneyRef.map((doc,key) =>
+                    <Wrap key={key}>
+                        <Link to={'/detail/' + doc.id}
+                            src=""
+                            alt=''
+                        >
+                            <img src={doc.backgroundImg} alt={doc.title} />
+                        </Link>
+                    </Wrap>
+                )
+                }
             </Content>
         </Container>
     )

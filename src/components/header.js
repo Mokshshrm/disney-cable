@@ -1,5 +1,6 @@
 import styled from "styled-components"
 import { React, useEffect, useReducer } from "react"
+
 import LOGO from '../assets/images/logo.svg'
 import HOMELOGO from '../assets/images/home-icon.svg'
 import MOVIEICON from '../assets/images/movie-icon.svg'
@@ -11,6 +12,7 @@ import PROFILEPIC from '../assets/images/slider-badging.jpg'
 
 import { auth } from '../firebase.js'
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
+
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { selectUserEmail, selectUserName, selectUserPhoto, setUserLogInDetails, setUserLogOutState } from "../features/user/userSlice.js"
@@ -38,24 +40,25 @@ export default function Header(Props) {
     }, [userName])
 
     async function HandleLogin() {
+
         if (!userName) {
             const provider = new GoogleAuthProvider();
-            signInWithPopup(auth, provider).then(result => {
-                setUser(result.user)
+            signInWithPopup(auth, provider).then(async (result) => {
+                await setUser(result.user)
                 navigate("/home")
             }).catch(err => {
                 alert(err.message)
             })
+
         } else if (userName) {
-            auth.signOut().then(() => {
-                dispatch(setUserLogOutState())
+            auth.signOut().then(async () => {
+                await dispatch(setUserLogOutState())
                 navigate('/')
             }).catch((err) => {
                 alert(err.message)
             })
         }
     }
-
     function setUser(user) {
         dispatch(setUserLogInDetails(user))
     }

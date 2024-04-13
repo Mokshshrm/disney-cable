@@ -11,8 +11,8 @@ const movieSlice = createSlice({
     initialState,
     reducers: {
         setMovies: (state, actoin) => {
-            state.recommended = actoin.payload.recommended,
-                state.newDisney = actoin.payload.newDisney
+            state.recommended = actoin.payload.recommended
+            state.newDisney = actoin.payload.newDisney
             state.originals = actoin.payload.originals
             state.trending = actoin.payload.trending
         }

@@ -42,6 +42,7 @@ export default function ImageSlider() {
         </Carousel>
     )
 }
+
 const Carousel = styled(Slider)`
     margin-top: 20px;
     & > button{

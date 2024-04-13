@@ -5,8 +5,9 @@ import Login from './components/Login'
 import Header from './components/header';
 import LoginPage from './pages/LoginPage'
 import Home from './components/Home'
-const App = () => {
+import Detail from './components/Detail';
 
+const App = () => {
   return (
     <div className='App'>
       <Router>
@@ -14,6 +15,7 @@ const App = () => {
         <Routes>
           <Route exact index path='/' element={<Login />} />
           <Route exact path='/home' element={<Home />} />
+          <Route exact path='/detail/:id' element={<Detail />} />
         </Routes>
       </Router>
     </div >
