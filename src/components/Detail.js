@@ -1,23 +1,12 @@
 import styled from 'styled-components'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-
-
-
-
-
-
+//
 import { db } from '../firebase'
 import { getDoc, doc } from 'firebase/firestore'
 import PLAYERIMAGE from '../assets/images/play.png'
 import PLAYERIMAGE1 from '../assets/images/play1.png'
 import GROUPICON from '../assets/images/group-icon.png'
-
-
-
-
-
-
 
 
 export default function Detail(props) {
