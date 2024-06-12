@@ -10,9 +10,9 @@ import Trending from "./Trending";
 import { useEffect, } from "react";
 import { useDispatch, useSelector } from 'react-redux'
 import { db } from '../firebase.js'
-import { setMovies} from "../features/movie/movieSlice.js";
+import { setMovies } from "../features/movie/movieSlice.js";
 import { selectUserName } from "../features/user/userSlice.js";
-import { collection, getDocs, addDoc, or } from 'firebase/firestore';
+import { collection, getDocs, addDoc } from 'firebase/firestore';
 
 export default function Home(props) {
     const dispatch = useDispatch();
@@ -23,7 +23,7 @@ export default function Home(props) {
     let trending = []
 
     useEffect(() => {
-        const collectionRef = collection(db, 'Movies')
+        const collectionRef =  collection(db, 'Movies')
         async function GetDoc() {
             const QuerySnapShot = await getDocs(collectionRef)
             QuerySnapShot.forEach((doc) => {
@@ -33,13 +33,13 @@ export default function Home(props) {
                         case "original":
                             originals = [...originals, { id: doc.id, ...MovieData }]
                             break
-                            case "trending":
-                                trending = [...trending, { id: doc.id, ...MovieData }]
-                                break
-                                case "recommend":
-                                    recommended = [...recommended, { id: doc.id, ...MovieData }]
-                                    break
-                                    case "new":
+                        case "trending":
+                            trending = [...trending, { id: doc.id, ...MovieData }]
+                            break
+                        case "recommend":
+                            recommended = [...recommended, { id: doc.id, ...MovieData }]
+                            break
+                        case "new":
                             newDisney = [...newDisney, { id: doc.id, ...MovieData }]
                             break
                     }

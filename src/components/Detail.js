@@ -11,13 +11,12 @@ import GROUPICON from '../assets/images/group-icon.png'
 
 export default function Detail(props) {
 
-    const [componentState, setComponentState] = useState({})
+    const [ componentState, setComponentState ] = useState({})
     const { id } = useParams()
 
     useEffect(() => {
         async function FetchingMovieData() {
             try {
-
                 const dataRef = (await getDoc(doc(db, 'Movies', id)))
                 const data = dataRef.data()
                 setComponentState((prev) => ({ ...data }))

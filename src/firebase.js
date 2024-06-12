@@ -2,16 +2,16 @@ import { initializeApp } from 'firebase/app'
 import { getFirestore } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth'
 import { GoogleAuthProvider } from 'firebase/auth'
-
-
+const dotenv = require('dotenv')
+dotenv.config({path:'../.env'})
 const firebaseConfig = {
-    apiKey: "AIzaSyD5XmCqE0XzR63kEfw3GHyZg3AW4FaiKzI",
-    authDomain: "disneyplus-cable.firebaseapp.com",
-    projectId: "disneyplus-cable",
-    storageBucket: "disneyplus-cable.appspot.com",
-    messagingSenderId: "460508816718",
-    appId: "1:460508816718:web:7f5264b4038baad9cb6a1f",
-    measurementId: "G-6TJQ0DC12S"
+    apiKey: process.env.REACT_APP_FIREBASE_apiKey,
+    authDomain: process.env.REACT_APP_FIREBASE_authDomain,
+    projectId: process.env.REACT_APP_FIREBASE_projectId,
+    storageBucket: process.env.REACT_APP_FIREBASE_storageBucket,
+    messagingSenderId: process.env.REACT_APP_FIREBASE_messagingSenderId,
+    appId: process.env.REACT_APP_FIREBASE_appId,
+    measurementId: process.env.REACT_APP_FIREBASE_measurementId
 };
 
 
