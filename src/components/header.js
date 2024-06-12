@@ -44,7 +44,7 @@ export default function Header(Props) {
         if (!userName) {
             const provider = new GoogleAuthProvider();
             signInWithPopup(auth, provider).then(async (result) => {
-                await setUser(result.user)
+                setUser(result.user)
                 navigate("/home")
             }).catch(err => {
                 alert(err.message)
