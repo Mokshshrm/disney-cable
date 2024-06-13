@@ -2,8 +2,8 @@ import { initializeApp } from 'firebase/app'
 import { getFirestore } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth'
 import { GoogleAuthProvider } from 'firebase/auth'
-const dotenv = require('dotenv')
-dotenv.config({path:'../.env'})
+
+
 const firebaseConfig = {
     apiKey: process.env.REACT_APP_FIREBASE_apiKey,
     authDomain: process.env.REACT_APP_FIREBASE_authDomain,
