@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import { React, useEffect, useReducer } from "react"
+import { React, useEffect } from "react"
 
 import LOGO from '../assets/images/logo.svg'
 import HOMELOGO from '../assets/images/home-icon.svg'
@@ -15,7 +15,7 @@ import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { selectUserEmail, selectUserName, selectUserPhoto, setUserLogInDetails, setUserLogOutState } from "../features/user/userSlice.js"
+import {  selectUserName, setUserLogInDetails, setUserLogOutState } from "../features/user/userSlice.js"
 
 
 export default function Header(Props) {
@@ -23,8 +23,6 @@ export default function Header(Props) {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const userName = useSelector(selectUserName)
-    const userEmail = useSelector(selectUserEmail)
-    const userPhoto = useSelector(selectUserPhoto)
 
     useEffect(() => {
         auth.onAuthStateChanged(async (user) => {
